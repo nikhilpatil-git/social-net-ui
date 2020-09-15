@@ -4,7 +4,7 @@ export type UserState = {
     error?: string;
     isLoading?: boolean;
     isResponseAvailable?: boolean;
-    serverResponse?: string;
+    serverResponse?: User[];
 };
 export const InitialEventState: UserState = {};
 
