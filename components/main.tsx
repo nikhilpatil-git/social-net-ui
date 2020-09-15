@@ -17,7 +17,12 @@ const ResponseMessage = ({...props}) => {
   }
 
   const fetchSuggestedFriends = async (id: number) => {
-    let friends  = await FetchSuggestedFriends(id);
+    let friends  = await FetchSuggestedFriends(id, "suggestedFriends");
+    dispatch({type:"ServerResponse", status: true, result: friends as User[]}) 
+  }
+
+  const fetchSuggestedFriendsGeo = async (id: number) => {
+    let friends  = await FetchSuggestedFriends(id, "suggestedFriendsSortByGeo");
     dispatch({type:"ServerResponse", status: true, result: friends as User[]}) 
   }
 
@@ -26,13 +31,14 @@ const ResponseMessage = ({...props}) => {
       <ListItem key={index}>
       <Grid
         templateRows="50px"
-        templateColumns="100px 100px 150px 150px"
+        templateColumns="100px 100px 150px 150px 180px"
         columnGap="10px"
       >
         <Text>{user.name}</Text>
         <Text>{user.city}</Text>
         <Button variantColor="green" onClick={() => fetchFriends(index+1)}>Show Friends</Button>
         <Button variantColor="green" onClick={() => fetchSuggestedFriends(index+1)}>Suggest Friends</Button>
+        <Button variantColor="green" onClick={() => fetchSuggestedFriendsGeo(index+1)}>Suggest Friends Geo</Button>
       </Grid>
     </ListItem>
     );
@@ -57,7 +63,7 @@ export const Main = () => {
   });
   
   useEffect(() => {
-    fetch('http://localhost:8080/users')
+    fetch('https://social-net-backend.herokuapp.com/users')
     .then(res => res.json())
     .then(
       (result) => {

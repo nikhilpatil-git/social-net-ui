@@ -4,7 +4,7 @@ export type User = {
 };
 
 export const FetchFriends = async (id: number) => {
-    return await fetch('http://localhost:8080/users/'+id+'/userFriends')
+    return await fetch('https://social-net-backend.herokuapp.com/users/'+id+'/userFriends')
     .then(res => res.json())
     .then(
       (result) => {
@@ -24,8 +24,8 @@ export const FetchFriends = async (id: number) => {
     )
 }
 
-export const FetchSuggestedFriends = async (id: number) => {
-    return await fetch('http://localhost:8080/users/'+id+'/suggestedFriends')
+export const FetchSuggestedFriends = async (id: number, keyword: string) => {
+    return await fetch('https://social-net-backend.herokuapp.com/users/'+id+'/'+keyword)
     .then(res => res.json())
     .then(
       (result) => {
@@ -42,3 +42,4 @@ export const FetchSuggestedFriends = async (id: number) => {
       }
     )
 }
+
